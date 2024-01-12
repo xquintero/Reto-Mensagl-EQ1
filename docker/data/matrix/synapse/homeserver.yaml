@@ -1,0 +1,52 @@
+# Configuration file for Synapse.
+#
+# This is a YAML file: see [1] for a quick introduction. Note in particular
+# that *indentation is important*: all the elements of a list or dictionary
+# should have the same indentation.
+#
+# [1] https://docs.ansible.com/ansible/latest/reference_appendices/YAMLSyntax.html
+#
+# For more information on how to configure Synapse, including a complete accounting of
+# each option, go to docs/usage/configuration/config_documentation.md or
+# https://matrix-org.github.io/synapse/latest/usage/configuration/config_documentation.html
+server_name: "matrix.xquintero-docker.duckdns.org"
+pid_file: /data/homeserver.pid
+web_client_location: https://riot.xquintero-docker.duckdns.org/
+public_baseurl: https://synapse.xquintero-docker.duckdns.org/
+listeners:
+  - port: 8008
+    tls: false
+    type: http
+    x_forwarded: true
+    resources:
+      - names: [client, federation]
+        compress: false
+federation_ip_range_blacklist:
+  - '127.0.0.0/8'
+  - '10.0.0.0/8'
+  - '172.16.0.0/12'
+  - '192.168.0.0/16'
+  - '100.64.0.0/10'
+  - '169.254.0.0/16'
+  - '::1/128'
+  - 'fe80::/64'
+  - 'fc00::/7'
+database:
+  name: sqlite3
+  args:
+    database: /data/homeserver.db
+log_config: "/data/matrix.xquintero-docker.duckdns.org.log.config"
+media_store_path: /data/media_store
+registration_shared_secret: "KN&8YtxQ1ipAYlmH~s-JlgbfAYv&_aL&WKV^KYGGrgD9.4JOiu"
+report_stats: true
+macaroon_secret_key: "gmx*4Jtib0Z9-aV-#cR6&pxTYh,LjUg#.L#Tr3RunzR;8pjWwM"
+form_secret: "Ybm^QZ2LFILlZI-*r9HSqsTTcK*BxJeXe2#F9@NtZ+PmHgsnba"
+signing_key_path: "/data/matrix.xquintero-docker.duckdns.org.signing.key"
+trusted_key_servers:
+  - server_name: "matrix.org"
+redis:
+  enabled: true
+  host: redis
+  port: 6379
+
+# vim:ft=yaml
