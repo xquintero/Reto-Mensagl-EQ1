@@ -1,3 +1,4 @@
+server_name: "matrix.equipo1msql.duckdns.org"
 pid_file: "/var/run/matrix-synapse.pid"
 listeners:
   - port: 8008
@@ -9,12 +10,26 @@ listeners:
       - names: [client, federation]
         compress: false
 database:
-  name: sqlite3
+  name: psycopg2
   args:
-    database: /var/lib/matrix-synapse/homeserver.db
+    user: synapse
+    password: 1234
+    database: synapsedb
+    host: 10.100.50.150
+    cp_min: 5
+    cp_max: 10
 log_config: "/etc/matrix-synapse/log.yaml"
+federation:
+  enabled: true
+federation_listener:
+  port: 8448
 media_store_path: /var/lib/matrix-synapse/media
 signing_key_path: "/etc/matrix-synapse/homeserver.signing.key"
 trusted_key_servers:
   - server_name: "matrix.org"
-registration_shared_secret: la key
+registration_shared_secret: PhrEKknU9oSeMiXiHBtkgocEfhl9HqXy
+serve_server_wellknown: true
+federation_domain_whitelist:
+  - "matrix.equipo1msql.duckdns.org"
+  - "separartodo.duckdns.org"
+  - "equipo2matrix.duckdns.org"
