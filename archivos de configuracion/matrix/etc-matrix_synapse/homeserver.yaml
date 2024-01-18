@@ -1,0 +1,20 @@
+pid_file: "/var/run/matrix-synapse.pid"
+listeners:
+  - port: 8008
+    tls: false
+    type: http
+    x_forwarded: true
+    bind_addresses: ['::1', '127.0.0.1', '10.100.50.77']
+    resources:
+      - names: [client, federation]
+        compress: false
+database:
+  name: sqlite3
+  args:
+    database: /var/lib/matrix-synapse/homeserver.db
+log_config: "/etc/matrix-synapse/log.yaml"
+media_store_path: /var/lib/matrix-synapse/media
+signing_key_path: "/etc/matrix-synapse/homeserver.signing.key"
+trusted_key_servers:
+  - server_name: "matrix.org"
+registration_shared_secret: la key
