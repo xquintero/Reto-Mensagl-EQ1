@@ -1,3 +1,3 @@
 #!/bin/bash
-apt update
-apt install coturn
+apt update -y
+apt install coturn -y
