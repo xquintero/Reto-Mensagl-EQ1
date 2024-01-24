@@ -1,13 +1,14 @@
 # Definir variables
-NOMBRE_VPC="MiVPC"
-CIDR_VPC="10.70.0.0/16"
+NOMBRE_VPC="XavierVPC"
+CIDR_VPC="10.20.0.0/16"
 NOMBRE_SUBRED_PUBLICA="SubredPublica"
-CIDR_SUBRED_PUBLICA="10.70.1.0/24"
+CIDR_SUBRED_PUBLICA="10.20.1.0/24"
 NOMBRE_SUBRED_PRIVADA="SubredPrivada"
-CIDR_SUBRED_PRIVADA="10.70.2.0/24"
+CIDR_SUBRED_PRIVADA="10.20.2.0/24"
 DEBIAN="ami-058bd2d568351da34"
 UBUNTU="ami-0c7217cdde317cfec"
-AMAZON-LINUX="ami-0a3c3a20c09d6f377"
+AMAZON_LINUX="ami-0a3c3a20c09d6f377"
+KEY_NAME="Reto2"
 
 # Crear VPC
 vpcId=$(aws ec2 create-vpc --cidr-block $CIDR_VPC --output json | jq -r '.Vpc.VpcId')
@@ -59,7 +60,7 @@ aws ec2 run-instances \
     --image-id $DEBIAN \
     --count 1 \
     --instance-type t2.micro \
-    --key-name Reto2 \
+    --key-name $KEY_NAME \
     --subnet-id $subnetPublicaId \
     --associate-public-ip-address
 
@@ -69,6 +70,6 @@ aws ec2 run-instances \
     --image-id $UBUNTU \
     --count 1 \
     --instance-type t2.micro \
-    --key-name Reto2 \
+    --key-name $KEY_NAME \
     --subnet-id $subnetPrivadaId \
     --associate-public-ip-address
