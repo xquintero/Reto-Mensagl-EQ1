@@ -5,6 +5,9 @@ NOMBRE_SUBRED_PUBLICA="SubredPublica"
 CIDR_SUBRED_PUBLICA="10.70.1.0/24"
 NOMBRE_SUBRED_PRIVADA="SubredPrivada"
 CIDR_SUBRED_PRIVADA="10.70.2.0/24"
+DEBIAN="ami-058bd2d568351da34"
+UBUNTU="ami-0c7217cdde317cfec"
+AMAZON-LINUX="ami-0a3c3a20c09d6f377"
 
 # Crear VPC
 vpcId=$(aws ec2 create-vpc --cidr-block $CIDR_VPC --output json | jq -r '.Vpc.VpcId')
@@ -15,7 +18,7 @@ subnetPublicaId=$(aws ec2 create-subnet --vpc-id $vpcId --cidr-block $CIDR_SUBRE
 aws ec2 create-tags --resources $subnetPublicaId --tags Key=Name,Value=$NOMBRE_SUBRED_PUBLICA
 
 # Crear subred privada
-subnetPrivadaId=$(aws ec2 create-subnet --vpc-id $vpcId --cidr-block $CIDR_SUBRED_PRIVADA --availability-zone us-east-1b --output json | jq -r '.Subnet.SubnetId')
+subnetPrivadaId=$(aws ec2 create-subnet --vpc-id $vpcId --cidr-block $CIDR_SUBRED_PRIVADA --availability-zone us-east-1a --output json | jq -r '.Subnet.SubnetId')
 aws ec2 create-tags --resources $subnetPrivadaId --tags Key=Name,Value=$NOMBRE_SUBRED_PRIVADA
 
 # Crear Internet Gateway
@@ -50,3 +53,22 @@ aws ec2 create-route --route-table-id $routeTablePrivadaId --destination-cidr-bl
 
 # Asociar tabla de rutas privada a la subred privada
 aws ec2 associate-route-table --subnet-id $subnetPrivadaId --route-table-id $routeTablePrivadaId
+
+#Lanzar instancias (Debian t2.micro) en la subred publica
+aws ec2 run-instances \
+    --image-id $DEBIAN \
+    --count 1 \
+    --instance-type t2.micro \
+    --key-name Reto2 \
+    --subnet-id $subnetPublicaId \
+    --associate-public-ip-address
+
+#Lanzar instancias (Ubuntu t2.micro) en la subred privada
+
+aws ec2 run-instances \
+    --image-id $UBUNTU \
+    --count 1 \
+    --instance-type t2.micro \
+    --key-name Reto2 \
+    --subnet-id $subnetPrivadaId \
+    --associate-public-ip-address
