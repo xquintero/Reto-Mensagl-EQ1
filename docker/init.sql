@@ -1,7 +1,0 @@
--- init.sql
-
-CREATE ROLE synapse;
-ALTER ROLE synapse WITH PASSWORD 'password';
-ALTER ROLE synapse WITH LOGIN;
-CREATE DATABASE synapse ENCODING 'UTF8' LC_COLLATE='C' LC_CTYPE='C' TEMPLATE=template0 OWNER synapse;
-GRANT ALL PRIVILEGES ON DATABASE synapse TO synapse;
