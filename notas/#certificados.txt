@@ -1,7 +1,0 @@
-#certificados
-sudo apt install certbot
-sudo certbot certonly --standalone -d dominio
-
-#clave secreta
-sudo apt install pwgen -y
-pwgen -s 64 1
