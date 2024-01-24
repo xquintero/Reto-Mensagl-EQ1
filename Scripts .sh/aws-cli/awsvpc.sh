@@ -72,4 +72,3 @@ aws ec2 run-instances \
     --instance-type t2.micro \
     --key-name $KEY_NAME \
     --subnet-id $subnetPrivadaId \
-    --associate-public-ip-address
