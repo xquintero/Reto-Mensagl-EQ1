@@ -1,11 +1,11 @@
-server_name: "matrix.equipo1msql.duckdns.org"
+server_name: "yourdomain.com"
 pid_file: "/var/run/matrix-synapse.pid"
 listeners:
   - port: 8008
     tls: false
     type: http
     x_forwarded: true
-    bind_addresses: ['::1', '127.0.0.1', '10.100.50.77']
+    bind_addresses: ['::1', '127.0.0.1', 'matrix-ip']
     resources:
       - names: [client, federation]
         compress: false
@@ -13,9 +13,9 @@ database:
   name: psycopg2
   args:
     user: synapse
-    password: 1234
+    password: psswd
     database: synapsedb
-    host: 10.100.50.150
+    host: postgre-ip
     cp_min: 5
     cp_max: 10
 log_config: "/etc/matrix-synapse/log.yaml"
@@ -27,9 +27,7 @@ media_store_path: /var/lib/matrix-synapse/media
 signing_key_path: "/etc/matrix-synapse/homeserver.signing.key"
 trusted_key_servers:
   - server_name: "matrix.org"
-registration_shared_secret: PhrEKknU9oSeMiXiHBtkgocEfhl9HqXy
+registration_shared_secret: psswd
 serve_server_wellknown: true
 federation_domain_whitelist:
-  - "matrix.equipo1msql.duckdns.org"
-  - "separartodo.duckdns.org"
-  - "equipo2matrix.duckdns.org"
+  - "anotherdomain.com"
