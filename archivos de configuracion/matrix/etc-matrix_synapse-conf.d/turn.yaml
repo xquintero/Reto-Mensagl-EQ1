@@ -1,4 +1,4 @@
-turn_uris: [ "yourdomaincoturn.com?transport=udp", "yourdomaincoturn.com?transport=tcp" ]
+turn_uris: [ "turns:yourdomaincoturn.com?transport=udp", "turns:yourdomaincoturn.com?transport=tcp" ]
 turn_shared_secret: "psswd"
 turn_user_lifetime: 86400000
 turn_allow_guests: True
