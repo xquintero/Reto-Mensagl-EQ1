@@ -1,4 +1,6 @@
 #!/bin/bash
+#Instalacion de wordpress con docker
+#Xavier Quintero Carrejo
 mkdir wordpress
 cd wordpress
 echo 'version: "3"

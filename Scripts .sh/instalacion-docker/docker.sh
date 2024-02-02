@@ -1,4 +1,6 @@
  #!/bin/bash
+ #Instalacion de Docker
+ #Xavier Quintero Carrejo
 sudo apt-get update
 sudo apt-get install ca-certificates curl gnupg -y
 sudo install -m 0755 -d /etc/apt/keyrings -y
